@@ -22,7 +22,7 @@
 		document.getElementsByTagName('head')[0].appendChild(link);
 	</script>
 </head>
-
+<!---https://github.com/hakimel/reveal.js-->
 <body>
 	<div class="reveal">
 		<div class="slides">
@@ -35,7 +35,48 @@
 				</p>
 			</section>
 			<section>
-				<h3>Folie 1</h3>
+				<section data-markdown>
+					<script type="text/template">
+					#### What are GraphFrames?
+
+					GraphFrames support general graph processing, similar to Apache Spark’s GraphX library. However,
+					GraphFrames are built on top of Spark DataFrames, resulting in some key advantages:
+					
+					See [link](https://databricks.com/blog/2016/03/03/introducing-graphframes.html).
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					* Python, Java & Scala APIs: GraphFrames provide uniform APIs for all 3 languages. For the first time, all
+					algorithms in GraphX are available from Python & Java.
+					* Powerful queries: GraphFrames allow users to phrase queries in the familiar, powerful APIs of Spark SQL
+					and DataFrames. <!-- .element: class="fragment" -->
+					* Saving & loading graphs: GraphFrames fully support DataFrame data sources, allowing writing and reading
+					graphs using many formats like Parquet, JSON, and CSV. <!-- .element: class="fragment" -->
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					In GraphFrames, vertices and edges are represented as DataFrames, allowing us to store arbitrary data
+					with each vertex and edge.
+					</script>
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+					<script type="text/template">
+					#### We have customers in Germany providing mobility solutions
+
+					<img src="img/publictransport.png">
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					#### They share a common problem: transport in cities is hard to plan
+
+					<img src="img/berlin.jpg">
+					</script>
+				</section>
 			</section>
 			<section data-background="img/jay-lee-hVxT5ojCmPw-unsplash.jpg">
 				<img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.makeameme.org%2Fcreated%2Fany-questions-thought.jpg&f=1"
