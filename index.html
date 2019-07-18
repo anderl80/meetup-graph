@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<title>Meetup Graphs on Databricks / Apache Spark</title>
+	<title>Apache Spark + AI Meetup - Graph Juli 2019</title>
 
 	<link rel="stylesheet" href="css/reveal.css">
 	<link rel="stylesheet" href="css/theme/moon.css">
@@ -23,12 +23,13 @@
 	</script>
 </head>
 <!---https://github.com/hakimel/reveal.js-->
+
 <body>
 	<div class="reveal">
 		<div class="slides">
 			<section data-background="img/pietro-jeng-n6B49lTx7NM-unsplash.jpg">
 				<h1>Graph Analytics</h1>
-				<h3>Mit Graphen auf Databricks arbeiten</h3>
+				<h3>in der Mobilität</h3>
 				<p>
 					<small>Created by <a href="https://twitter.com/hopfi80">Dr. Andreas Hopfgartner</a> @ <a
 							href="http://www.btelligent.com">b.telligent</a></small>
@@ -37,10 +38,60 @@
 			<section>
 				<section data-markdown>
 					<script type="text/template">
-					#### What are GraphFrames?
+					#### Ein Graph in der Mobilität
 
-					GraphFrames support general graph processing, similar to Apache Spark’s GraphX library. However,
-					GraphFrames are built on top of Spark DataFrames, resulting in some key advantages:
+					- Edges: Straßen, Schienen, ...
+					- Nodes: Kreuzungen, Haltestellen, POIs, ...
+					- Attribute: Flow, ...
+					- Typ: Gerichtet und ungerichtet, gewichtet, mehrere Knoten Entitäten möglich (k-partit)
+
+					<img data-src="img/urban-street-network-graph-node-closeness-centrality.png" height="300" width="auto">
+						</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					#### Was kann ich analysieren?
+					
+					- Die Struktur des Netzwerks selbst mit Ziel der Optimierung:
+					 [Complex network analysis of public transportation networks](https://doi.org/10.1109/MTITS.2015.7223282)
+
+					<img data-src="img/debrecen.png" height="350" width="auto">
+						</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					#### Was kann ich analysieren?
+					
+					- Informationen über die Elemente in den Netzwerken selbst:
+					[Beispiel](https://news.mit.edu/2016/how-ride-sharing-can-improve-traffic-save-money-and-help-environment-0104)
+						+ Knoten (Nodes)
+							* Centrality
+							* Communities (Attribute)
+							* Cliques
+						+ Kanten (Edges)
+							* ...
+						</script>
+				</section>
+			</section>
+			<section>
+				<section data-markdown="">
+					#### Welche Tools stehen mir zur Verfügung?
+
+					- Python
+						+ [NetworkX](https://networkx.github.io/)
+						+ [osmnx](https://geoffboeing.com/) für OpenStreetMap Daten
+					- Spark
+						+ GraphX - RDD API
+						+ [GraphFrames](https://github.com/graphframes/graphframes) - DataFrame API
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+					<script type="text/template">
+					#### What sind GraphFrames?
+
+					> GraphFrames support general graph processing, similar to Apache Spark’s GraphX library. However,
+					> GraphFrames are built on top of Spark DataFrames, resulting in some key advantages:
 					
 					See [link](https://databricks.com/blog/2016/03/03/introducing-graphframes.html).
 					</script>
@@ -57,9 +108,34 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					In GraphFrames, vertices and edges are represented as DataFrames, allowing us to store arbitrary data
-					with each vertex and edge.
+					- In GraphFrame werden Knoten und Kanten je als DataFrame repräsentiert
+					- So können beliebige Daten als Attribute mit Knoten und Kanten verbunden werden <!-- .element: class="fragment" -->
+
+					<pre class="fragment"><code class="hljs" data-line-numbers="7" data-trim data-noescape>
+							v = sqlContext.createDataFrame([
+							  ("a", "Alice", 34),
+							  ("b", "Bob", 36),
+							  ("c", "Charlie", 30),
+							], ["id", "name", "age"])
+							
+							e = sqlContext.createDataFrame([
+							  ("a", "b", "friend"),
+							  ("b", "c", "follow"),
+							  ("c", "b", "follow"),
+							], ["src", "dst", "relationship"])
+
+							from graphframes import *
+							g = GraphFrame(v, e)
+							</code></pre>
 					</script>
+				</section>
+				<section data-markdown>
+						<script type="text/template">
+					#### Funktionen
+
+					<iframe width="800" height="400" src="https://graphframes.github.io/graphframes/docs/_site/user-guide.html">
+					</iframe>
+				</script>
 				</section>
 			</section>
 			<section>
@@ -79,8 +155,8 @@
 				</section>
 			</section>
 			<section data-background="img/jay-lee-hVxT5ojCmPw-unsplash.jpg">
-				<img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.makeameme.org%2Fcreated%2Fany-questions-thought.jpg&f=1"
-					style="background:none; border:none;box-shadow:none;" height="40%">
+				<img
+					src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.makeameme.org%2Fcreated%2Fany-questions-thought.jpg&f=1">
 			</section>
 		</div>
 	</div>
