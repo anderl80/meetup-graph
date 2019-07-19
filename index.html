@@ -38,11 +38,11 @@
 			<section>
 				<section data-markdown>
 					<script type="text/template">
-					#### Ein Graph in der Mobilität
+					### Ein Graph in der Mobilität
 
-					- Edges: Straßen, Schienen, ...
-					- Nodes: Kreuzungen, Haltestellen, POIs, ...
-					- Attribute: Flow, ...
+					- Kanten: Straßen, Schienen, ...
+					- Knoten: Kreuzungen, Haltestellen, POIs, ...
+					- Attribute: Flow, Positionen der Nodes, ...
 					- Typ: Gerichtet und ungerichtet, gewichtet, mehrere Knoten Entitäten möglich (k-partit)
 
 					<img data-src="img/urban-street-network-graph-node-closeness-centrality.png" height="300" width="auto">
@@ -50,7 +50,7 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					#### Was kann ich analysieren?
+					### Was kann ich analysieren?
 					
 					- Die Struktur des Netzwerks selbst mit Ziel der Optimierung:
 					 [Complex network analysis of public transportation networks](https://doi.org/10.1109/MTITS.2015.7223282)
@@ -60,7 +60,7 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					#### Was kann ich analysieren?
+					### Was kann ich analysieren?
 					
 					- Informationen über die Elemente in den Netzwerken selbst:
 					[Beispiel](https://news.mit.edu/2016/how-ride-sharing-can-improve-traffic-save-money-and-help-environment-0104)
@@ -73,27 +73,31 @@
 						</script>
 				</section>
 			</section>
-			<section>
-				<section data-markdown="">
-					#### Welche Tools stehen mir zur Verfügung?
 
-					- Python
-						+ [NetworkX](https://networkx.github.io/)
-						+ [osmnx](https://geoffboeing.com/) für OpenStreetMap Daten
-					- Spark
-						+ GraphX - RDD API
-						+ [GraphFrames](https://github.com/graphframes/graphframes) - DataFrame API
-				</section>
+			<section data-markdown>
+				### Welche Tools stehen mir zur Verfügung?
+
+				- Python
+					+ [NetworkX](https://networkx.github.io/)
+					+ [osmnx](https://geoffboeing.com/) für OpenStreetMap Daten
+				- Spark
+					+ [GraphX](https://spark.apache.org/graphx/) - RDD API
+					+ [GraphFrames](https://github.com/graphframes/graphframes) - DataFrame API
+				- Visualisierung
+					+ [gephi](https://gephi.org/)
+					+ [Holoviews](http://holoviews.org/reference/elements/bokeh/Graph.html) (Bokeh)
+					+ d3js
 			</section>
+
 			<section>
 				<section data-markdown>
 					<script type="text/template">
-					#### What sind GraphFrames?
+					### What sind GraphFrames?
 
 					> GraphFrames support general graph processing, similar to Apache Spark’s GraphX library. However,
 					> GraphFrames are built on top of Spark DataFrames, resulting in some key advantages:
 					
-					See [link](https://databricks.com/blog/2016/03/03/introducing-graphframes.html).
+					<small>Taken from [link](https://databricks.com/blog/2016/03/03/introducing-graphframes.html)</small>
 					</script>
 				</section>
 				<section data-markdown>
@@ -111,7 +115,7 @@
 					- In GraphFrame werden Knoten und Kanten je als DataFrame repräsentiert
 					- So können beliebige Daten als Attribute mit Knoten und Kanten verbunden werden <!-- .element: class="fragment" -->
 
-					<pre class="fragment"><code class="hljs" data-line-numbers="7" data-trim data-noescape>
+					<pre class="fragment"><code class="hljs" data-line-numbers="7" data-trim>
 							v = sqlContext.createDataFrame([
 							  ("a", "Alice", 34),
 							  ("b", "Bob", 36),
@@ -130,10 +134,10 @@
 					</script>
 				</section>
 				<section data-markdown>
-						<script type="text/template">
-					#### Funktionen
+					<script type="text/template">
+					### Welche Algorithmen stehen mir zuf Verfügung?
 
-					<iframe width="800" height="400" src="https://graphframes.github.io/graphframes/docs/_site/user-guide.html">
+					<iframe width="800" height="400" data-src="https://graphframes.github.io/graphframes/docs/_site/user-guide.html#graph-algorithms">
 					</iframe>
 				</script>
 				</section>
@@ -141,22 +145,47 @@
 			<section>
 				<section data-markdown>
 					<script type="text/template">
-					#### We have customers in Germany providing mobility solutions
+					### Die Herausforderung
+					
+					Wir arbeiten mit Kunden in der Mobilität, die alle vor ähnlichen Herausforderungen stehen
+					- Immer mehr Personen möchten in einem wachsend komplexem Umfeld transportiert werden
 
-					<img src="img/publictransport.png">
+					<img data-src="img/publictransport.png" height=300>
 					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					#### They share a common problem: transport in cities is hard to plan
+					### Was man oft vergisst
 
-					<img src="img/berlin.jpg">
+					Abläufe, die für den Menschen einfach erscheinen, sind für einen Bordcomputer, eine Applikation, ein Leistellensystem
+					oft eine große Herausforderung.
+
+					<img data-src="img/berlin.jpg" height=300>
 					</script>
+				</section>
+				<section data-markdown>
+					Momentan haben wir es oft mit Log-Daten von verschiedenen Apps der Münchner Mobilitätsanbieter zu
+					tun. Dort gibt is immer ein ähnliches Schema, eine Userbasis *u* möchte vom Dienstleister *d* in
+					verschiedenen Transportgefäßen **v** von **a** nach **b** gebracht werden. Wir unterscheiden hier
+					zwei Welten, die Mobilitätsanfrage des Users **Au**, das Mobilitätsangebot der
+					Mobilitätsdienstleister **Ad** und die tatsächliche Nachfrage **N**.
+
+					Bei diesem Use-Case alleine wird es zukünftig nicht bleiben. Man nehme an ein Fahrgast ist von einer
+					Verzögerung betroffen und steht am Hauptbahnhof. Jetzt kann ihm alternativ eine schnellere Route
+					empfohlen werden, oder es kann ihm der Besuch in seinem Lieblings-Shop in Bahnhofsnähe empfohlen
+					werden, in das ihm vielleicht noch ein Angebot lockt. Hier werden also mehrere Netzwerke miteinander
+					in Verbindung gebracht.
+
+					Da die Daten sehr heterogen sind und wir momentan diese Daten nicht in originaler Form zeigen können
+					(und randomisieren echt langweilige Ergebnisse liefert...), suchen wir uns ein sehr ähnliches
+					Beispiel raus.
+
+					ToDo: wie baue ich mir einen optimalen Graphen?
 				</section>
 			</section>
 			<section data-background="img/jay-lee-hVxT5ojCmPw-unsplash.jpg">
 				<img
-					src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.makeameme.org%2Fcreated%2Fany-questions-thought.jpg&f=1">
+					data-src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.makeameme.org%2Fcreated%2Fany-questions-thought.jpg&f=1">
 			</section>
 		</div>
 	</div>
