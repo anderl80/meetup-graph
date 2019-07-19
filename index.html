@@ -61,6 +61,15 @@
 					<script type="text/template">
 					### Was kann ich analysieren?
 					
+					- Fluss-Analyse innerhalb eines Netzes: [Beispiel: Edge Bundling in Flow Maps](https://anitagraser.com/2017/10/08/movement-data-in-gis-8-edge-bundling-for-flow-maps/)
+
+					<img data-src="img/edgebundling.jpg" height="350" width="auto">
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					### Was kann ich analysieren?
+					
 					- Informationen über (bewegliche) Elemente in den Netzwerken selbst: [Beispiel: Ride Sharing](https://news.mit.edu/2016/how-ride-sharing-can-improve-traffic-save-money-and-help-environment-0104)
 
 					<img data-src="https://news.mit.edu/sites/mit.edu.newsoffice/files/styles/news_article_image_top_slideshow/public/images/2017/rideshare-algorithm-nyc-mit-csail_0.png?itok=GssElEHS" height="350" width="auto">
@@ -75,6 +84,7 @@
 				- Python <!-- .element: class="fragment" -->
 					+ [NetworkX](https://networkx.github.io/)
 					+ [osmnx](https://geoffboeing.com/) für OpenStreetMap Daten
+					+ [GraphTool](https://graph-tool.skewed.de/)
 				- Spark <!-- .element: class="fragment" -->
 					+ [GraphX](https://spark.apache.org/graphx/) - RDD API
 					+ [GraphFrames](https://github.com/graphframes/graphframes) - DataFrame API
@@ -143,10 +153,10 @@
 					<script type="text/template">
 					### Die Herausforderung
 					
-					Wir arbeiten mit Kunden in der Mobilität, die alle vor ähnlichen Herausforderungen stehen
-					- Immer mehr Personen möchten in einem wachsend komplexem Umfeld transportiert werden
+					> Immer mehr Personen möchten in einem wachsend komplexem Umfeld transportiert werden
 
-					<img data-src="img/publictransport.png" height=300>
+					<img data-src="img/berlin.jpg" height=300>
+					<aside class="notes">Wir arbeiten mit Mobilitätsdienstleisern zusammen, die alle vor ähnlichen Herausforderungen stehen</aside>
 					</script>
 				</section>
 				<section data-markdown>
@@ -155,12 +165,9 @@
 
 					- Abläufe, die für den Menschen einfach erscheinen, sind für einen Bordcomputer, eine Applikation, ein Leistellensystem
 					oft eine große Herausforderung.
-
-					- Routenoptimierung "Ride Sharing" ([IsarTiger](https://www.mvg.de/services/mobile-services/mvg-isartiger.html))
-
-					- Routenmatching (Ziel und Zweck des Einsatzes)
-
-					<img data-src="img/berlin.jpg" height=200>
+					- Aufbau einer optimalen Ladeinfrastruktur (Bus, Auto, Roller, eBike, eRoller) <!-- .element: class="fragment" -->
+					- <!-- .element: class="fragment" --> Routenoptimierung "Ride Sharing" ([IsarTiger](https://www.mvg.de/services/mobile-services/mvg-isartiger.html))
+					- Routenmatching (Ziel und Zweck des Einsatzes) <!-- .element: class="fragment" -->
 					</script>
 				</section>
 				<section data-markdown>
@@ -183,26 +190,26 @@
 					### Potentielle Use Cases
 
 					- Fahrgast ist von einer Verzögerung betroffen und steht am Hauptbahnhof
-					- Alternative Verbindungen empfehlen <!-- .element: class="fragment" -->
+					- <!-- .element: class="fragment" --> Alternative Verbindungen empfehlen 
 						+ Reaktion auf Echtzeit Anfragen anderer User
-					- Verknüpfung mit "Social Media" <!-- .element: class="fragment" -->
-						+ Vorsicht DSGVO! Hier muss mit besonderer Vorsicht gehandelt werden
-						+ Rabatt-Gutschein beim Yormas
-					- Verhalten von Gruppen bei Verzögerungen <!-- .element: class="fragment" -->
+						+ Routing per Ride Sharing, Car Sharing, ...
+					- <!-- .element: class="fragment" --> Verknüpfung mit *Social Media* 
+						+ Vorsicht DSGVO und Opt-ins! Hier muss mit besonderer Vorsicht gehandelt werden
+						+ Gutschein beim bevorzugten Laden in der Nähe
+					- <!-- .element: class="fragment" --> Gruppen-Verhalten bei Verzögerungen 
 						+ Welche Locations sind besonders gut besucht
 					</script>
 				</section>
+			</section>
+			<section>
 				<section data-markdown>
 					<script type="text/template">
 					### Ein Anwendungsbeispiel
-
-					- Daten aus Applikationen zumeist sehr heterogen ...
 					
-					<iframe class="fragment" width="800" height="300" data-src="http://geoviews.org/gallery/bokeh/airport_graph.html"></iframe>
+					<iframe class="fragment" width="1200" height="500" data-src="http://geoviews.org/gallery/bokeh/airport_graph.html"></iframe>
 
-					<small>[Databricks Notebook](https://westeurope.azuredatabricks.net/?o=6175614239063779#notebook/4324544873301235/command/4324544873301236)</small>
 					</script>
-					<aside class="notes">... und wir momentan diese Daten nicht in originaler
+					<aside class="notes">Daten aus Applikationen zumeist sehr heterogen und da wir momentan diese Daten nicht in originaler
 							Form zeigen können (und randomisieren echt langweilige Ergebnisse liefert...), suchen wir uns ein sehr ähnliches
 							Beispiel zur Veranschaulichung.</aside>
 				</section>
@@ -210,16 +217,17 @@
 					<script type="text/template">
 					### Ein Anwendungsbeispiel
 
-					Remember: a graph consists of **nodes (vertices)**, **egdes**, and **attributes**
+					|                  |                                   |
+					|------------------|-----------------------------------|
+					| Knoten           | Flughafen                         |
+					| Kanten           | Flüge                             |
+					| Knoten Attribute | Name, Kürzel, Staat, ...          |
+					| Kanten Attribute | Route, Zeitpunkt, Verspätung, ... |
+					| | |
 
-					Here, a node is an airport and a flight is an edge connecting to nodes.
+					<!-- .element: class="fragment" --> Gerichteter Multi-Graph, Kanten zwischen zwei Knoten<br>x &rarr; y und y &rarr; x<br>können mehrfach auftreten.
 
-					Attributes of the nodes: position (here states)
-					Attributes of the edges: date, delay
-
-					This graph is a directed multi-graph, connections between to egdes can occur multiple times from `x -> y` and from `y -> x`.
-
-					<small>[Databricks Notebook](https://westeurope.azuredatabricks.net/?o=6175614239063779#notebook/4324544873301235/command/4324544873301236)</small>
+					<!-- .element: class="fragment" --> <small>[Databricks Notebook](https://westeurope.azuredatabricks.net/?o=6175614239063779#notebook/4324544873301235/command/4324544873301236)</small>
 					</script>
 				</section>
 			</section>
