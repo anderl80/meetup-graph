@@ -52,41 +52,37 @@
 					<script type="text/template">
 					### Was kann ich analysieren?
 					
-					- Die Struktur des Netzwerks selbst mit Ziel der Optimierung:
-					 [Complex network analysis of public transportation networks](https://doi.org/10.1109/MTITS.2015.7223282)
+					- Die Struktur des Netzwerks selbst mit Ziel der Optimierung: [Beispiel: Complex network analysis of public transportation networks](https://doi.org/10.1109/MTITS.2015.7223282)
 
 					<img data-src="img/debrecen.png" height="350" width="auto">
-						</script>
+					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
 					### Was kann ich analysieren?
 					
-					- Informationen über die Elemente in den Netzwerken selbst:
-					[Beispiel](https://news.mit.edu/2016/how-ride-sharing-can-improve-traffic-save-money-and-help-environment-0104)
-						+ Knoten (Nodes)
-							* Centrality
-							* Communities (Attribute)
-							* Cliques
-						+ Kanten (Edges)
-							* ...
-						</script>
+					- Informationen über (bewegliche) Elemente in den Netzwerken selbst: [Beispiel: Ride Sharing](https://news.mit.edu/2016/how-ride-sharing-can-improve-traffic-save-money-and-help-environment-0104)
+
+					<img data-src="https://news.mit.edu/sites/mit.edu.newsoffice/files/styles/news_article_image_top_slideshow/public/images/2017/rideshare-algorithm-nyc-mit-csail_0.png?itok=GssElEHS" height="350" width="auto">
+					</script>
 				</section>
 			</section>
 
 			<section data-markdown>
+				<script type="text/template">
 				### Welche Tools stehen mir zur Verfügung?
 
-				- Python
+				- Python <!-- .element: class="fragment" -->
 					+ [NetworkX](https://networkx.github.io/)
 					+ [osmnx](https://geoffboeing.com/) für OpenStreetMap Daten
-				- Spark
+				- Spark <!-- .element: class="fragment" -->
 					+ [GraphX](https://spark.apache.org/graphx/) - RDD API
 					+ [GraphFrames](https://github.com/graphframes/graphframes) - DataFrame API
-				- Visualisierung
+				- Visualisierung <!-- .element: class="fragment" -->
 					+ [gephi](https://gephi.org/)
 					+ [Holoviews](http://holoviews.org/reference/elements/bokeh/Graph.html) (Bokeh)
 					+ d3js
+				</script>
 			</section>
 
 			<section>
@@ -157,30 +153,74 @@
 					<script type="text/template">
 					### Was man oft vergisst
 
-					Abläufe, die für den Menschen einfach erscheinen, sind für einen Bordcomputer, eine Applikation, ein Leistellensystem
+					- Abläufe, die für den Menschen einfach erscheinen, sind für einen Bordcomputer, eine Applikation, ein Leistellensystem
 					oft eine große Herausforderung.
 
-					<img data-src="img/berlin.jpg" height=300>
+					- Routenoptimierung "Ride Sharing" ([IsarTiger](https://www.mvg.de/services/mobile-services/mvg-isartiger.html))
+
+					- Routenmatching (Ziel und Zweck des Einsatzes)
+
+					<img data-src="img/berlin.jpg" height=200>
 					</script>
 				</section>
 				<section data-markdown>
-					Momentan haben wir es oft mit Log-Daten von verschiedenen Apps der Münchner Mobilitätsanbieter zu
-					tun. Dort gibt is immer ein ähnliches Schema, eine Userbasis *u* möchte vom Dienstleister *d* in
-					verschiedenen Transportgefäßen **v** von **a** nach **b** gebracht werden. Wir unterscheiden hier
-					zwei Welten, die Mobilitätsanfrage des Users **Au**, das Mobilitätsangebot der
-					Mobilitätsdienstleister **Ad** und die tatsächliche Nachfrage **N**.
+					<script type="text/template">
+					### Wiederkehrendes Schema
 
-					Bei diesem Use-Case alleine wird es zukünftig nicht bleiben. Man nehme an ein Fahrgast ist von einer
-					Verzögerung betroffen und steht am Hauptbahnhof. Jetzt kann ihm alternativ eine schnellere Route
-					empfohlen werden, oder es kann ihm der Besuch in seinem Lieblings-Shop in Bahnhofsnähe empfohlen
-					werden, in das ihm vielleicht noch ein Angebot lockt. Hier werden also mehrere Netzwerke miteinander
-					in Verbindung gebracht.
+					- eine Userbasis *u* <!-- .element: class="fragment" -->
+					- möchte vom Dienstleister *d* in <!-- .element: class="fragment" -->
+					- Transportgefäßen **v** <!-- .element: class="fragment" -->
+					- von **a** nach **b** gebracht werden <!-- .element: class="fragment" -->
+					
+					Wir unterscheiden hier <!-- .element: class="fragment" -->
+					- die Mobilitätsanfrage des Users **Au** <!-- .element: class="fragment" -->
+					- das Mobilitätsangebot der Mobilitätsdienstleister **Ad** <!-- .element: class="fragment" -->
+					- die tatsächliche Nachfrage **N** <!-- .element: class="fragment" -->
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					### Potentielle Use Cases
 
-					Da die Daten sehr heterogen sind und wir momentan diese Daten nicht in originaler Form zeigen können
-					(und randomisieren echt langweilige Ergebnisse liefert...), suchen wir uns ein sehr ähnliches
-					Beispiel raus.
+					- Fahrgast ist von einer Verzögerung betroffen und steht am Hauptbahnhof
+					- Alternative Verbindungen empfehlen <!-- .element: class="fragment" -->
+						+ Reaktion auf Echtzeit Anfragen anderer User
+					- Verknüpfung mit "Social Media" <!-- .element: class="fragment" -->
+						+ Vorsicht DSGVO! Hier muss mit besonderer Vorsicht gehandelt werden
+						+ Rabatt-Gutschein beim Yormas
+					- Verhalten von Gruppen bei Verzögerungen <!-- .element: class="fragment" -->
+						+ Welche Locations sind besonders gut besucht
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					### Ein Anwendungsbeispiel
 
-					ToDo: wie baue ich mir einen optimalen Graphen?
+					- Daten aus Applikationen zumeist sehr heterogen ...
+					
+					<iframe class="fragment" width="800" height="300" data-src="http://geoviews.org/gallery/bokeh/airport_graph.html"></iframe>
+
+					<small>[Databricks Notebook](https://westeurope.azuredatabricks.net/?o=6175614239063779#notebook/4324544873301235/command/4324544873301236)</small>
+					</script>
+					<aside class="notes">... und wir momentan diese Daten nicht in originaler
+							Form zeigen können (und randomisieren echt langweilige Ergebnisse liefert...), suchen wir uns ein sehr ähnliches
+							Beispiel zur Veranschaulichung.</aside>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					### Ein Anwendungsbeispiel
+
+					Remember: a graph consists of **nodes (vertices)**, **egdes**, and **attributes**
+
+					Here, a node is an airport and a flight is an edge connecting to nodes.
+
+					Attributes of the nodes: position (here states)
+					Attributes of the edges: date, delay
+
+					This graph is a directed multi-graph, connections between to egdes can occur multiple times from `x -> y` and from `y -> x`.
+
+					<small>[Databricks Notebook](https://westeurope.azuredatabricks.net/?o=6175614239063779#notebook/4324544873301235/command/4324544873301236)</small>
+					</script>
 				</section>
 			</section>
 			<section data-background="img/jay-lee-hVxT5ojCmPw-unsplash.jpg">
