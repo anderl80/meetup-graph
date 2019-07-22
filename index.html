@@ -29,7 +29,7 @@
 		<div class="slides">
 			<section data-background="img/pietro-jeng-n6B49lTx7NM-unsplash.jpg" data-background-opacity="0.7">
 				<h1>Graph Analytics</h1>
-				<h3>in der Mobilität</h3>
+				<h3>in Mobility</h3>
 				<p>
 					<small>Created by <a href="https://twitter.com/hopfi80">Dr. Andreas Hopfgartner</a> @ <a
 							href="http://www.btelligent.com">b.telligent</a></small>
@@ -38,39 +38,39 @@
 			<section data-background="img/pietro-jeng-n6B49lTx7NM-unsplash.jpg" data-background-opacity="0.2">
 				<section data-markdown>
 					<script type="text/template">
-					### Ein Graph in der Mobilität
+					### A graph in mobility
 
-					- Kanten: Straßen, Schienen, ...
-					- Knoten: Kreuzungen, Haltestellen, POIs, ...
-					- Attribute: Flow, Positionen der Nodes, ...
-					- Typ: Gerichtet und ungerichtet, gewichtet, mehrere Knoten Entitäten möglich (k-partit)
+					- Edges: streets, rails, connections, ...
+					- Nodes (vertices): crossings, stops, POIs, ...
+					- Attributes: Flow through edges, positions of nodes, ...
+					- Type: directed or undirected, weighted or unweighted, multi, k-partite
 
 					<img data-src="img/urban-street-network-graph-node-closeness-centrality.png" height="300" width="auto">
 						</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					### Was kann ich analysieren?
+					### Types of Graph Analytics in Mobility
 					
-					- Die Struktur des Netzwerks selbst mit Ziel der Optimierung: [Beispiel: Complex network analysis of public transportation networks](https://doi.org/10.1109/MTITS.2015.7223282)
+					- The structure of the network itself with the aim of optimisation: [Complex network analysis of public transportation networks](https://doi.org/10.1109/MTITS.2015.7223282)
 
 					<img data-src="img/debrecen.png" height="350" width="auto">
 					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					### Was kann ich analysieren?
+					### Types of Graph Analytics in Mobility
 					
-					- Fluss-Analyse innerhalb eines Netzes: [Beispiel: Edge Bundling in Flow Maps](https://anitagraser.com/2017/10/08/movement-data-in-gis-8-edge-bundling-for-flow-maps/)
+					- Flow analysis within the network: [Edge Bundling in Flow Maps](https://anitagraser.com/2017/10/08/movement-data-in-gis-8-edge-bundling-for-flow-maps/)
 
 					<img data-src="img/edgebundling.jpg" height="350" width="auto">
 					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					### Was kann ich analysieren?
+					### Types of Graph Analytics in Mobility
 					
-					- Informationen über (bewegliche) Elemente in den Netzwerken selbst: [Beispiel: Ride Sharing](https://news.mit.edu/2016/how-ride-sharing-can-improve-traffic-save-money-and-help-environment-0104)
+					- Information on (moving) members within the network: [Ride Sharing](https://news.mit.edu/2016/how-ride-sharing-can-improve-traffic-save-money-and-help-environment-0104)
 
 					<img data-src="https://news.mit.edu/sites/mit.edu.newsoffice/files/styles/news_article_image_top_slideshow/public/images/2017/rideshare-algorithm-nyc-mit-csail_0.png?itok=GssElEHS" height="350" width="auto">
 					</script>
@@ -79,12 +79,11 @@
 
 			<section data-markdown data-background="img/christopher-burns-8KfCR12oeUM-unsplash.jpg" data-background-opacity="0.1">
 				<script type="text/template">
-				### Welche Tools stehen mir zur Verfügung?
+				### What are usable tools in the Py(Spark) world?
 
 				- Python <!-- .element: class="fragment" -->
 					+ [NetworkX](https://networkx.github.io/)
-					+ [osmnx](https://geoffboeing.com/) für OpenStreetMap Daten
-					+ [GraphTool](https://graph-tool.skewed.de/)
+					+ [osmnx](https://geoffboeing.com/) for openstreetmap data
 				- Spark <!-- .element: class="fragment" -->
 					+ [GraphX](https://spark.apache.org/graphx/) - RDD API
 					+ [GraphFrames](https://github.com/graphframes/graphframes) - DataFrame API
@@ -98,7 +97,7 @@
 			<section data-background="img/christopher-burns-8KfCR12oeUM-unsplash.jpg" data-background-opacity="0.1">
 				<section data-markdown>
 					<script type="text/template">
-					### What sind GraphFrames?
+					### What is GraphFrames?
 
 					> GraphFrames support general graph processing, similar to Apache Spark’s GraphX library. However,
 					> GraphFrames are built on top of Spark DataFrames, resulting in some key advantages:
@@ -108,18 +107,16 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					* Python, Java & Scala APIs: GraphFrames provide uniform APIs for all 3 languages. For the first time, all
-					algorithms in GraphX are available from Python & Java.
-					* Powerful queries: GraphFrames allow users to phrase queries in the familiar, powerful APIs of Spark SQL
-					and DataFrames. <!-- .element: class="fragment" -->
-					* Saving & loading graphs: GraphFrames fully support DataFrame data sources, allowing writing and reading
-					graphs using many formats like Parquet, JSON, and CSV. <!-- .element: class="fragment" -->
+						> * Python, Java & Scala APIs
+						> * Powerful queries:  Spark SQL and DataFrames. <!-- .element: class="fragment" -->
+						> * Saving & loading graphs <!-- .element: class="fragment" -->
+					
 					</script>
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					- In GraphFrame werden Knoten und Kanten je als DataFrame repräsentiert
-					- So können beliebige Daten als Attribute mit Knoten und Kanten verbunden werden <!-- .element: class="fragment" -->
+					
+					> In GraphFrames, vertices and edges are represented as DataFrames, allowing us to store arbitrary data with each vertex and edge.
 
 					<pre class="fragment"><code class="hljs" data-line-numbers="7" data-trim>
 							v = sqlContext.createDataFrame([
@@ -141,9 +138,9 @@
 				</section>
 				<section data-markdown>
 					<script type="text/template">
-					### Welche Algorithmen stehen mir zuf Verfügung?
+					### Available algorithms in GraphFrames
 
-					<iframe width="800" height="400" data-src="https://graphframes.github.io/graphframes/docs/_site/user-guide.html#graph-algorithms">
+					<iframe width="800" height="600" data-src="https://graphframes.github.io/graphframes/docs/_site/user-guide.html">
 					</iframe>
 				</script>
 				</section>
@@ -151,53 +148,48 @@
 			<section>
 				<section data-markdown data-background="img/dominik-martin-yE3_G-b1Spc-unsplash.jpg" data-background-opacity="0.2">
 					<script type="text/template">
-					### Die Herausforderung
+					### The challenge
 					
-					> Immer mehr Personen möchten in einem wachsend komplexem Umfeld transportiert werden
+					> A growing number of passengers has to be transported within a growing complexity of the city network.
 
-					<img data-src="img/berlin.jpg" height=300>
-					<aside class="notes">Wir arbeiten mit Mobilitätsdienstleisern zusammen, die alle vor ähnlichen Herausforderungen stehen</aside>
+					<img data-src="img/publictransport.png" height=300>
+					<aside class="notes">We are working with mobility providers facing mostly similar challenges</aside>
 					</script>
 				</section>
 				<section data-markdown data-markdown data-background="img/dominik-martin-yE3_G-b1Spc-unsplash.jpg" data-background-opacity="0.2">
 					<script type="text/template">
-					### Was man oft vergisst
+					### Pain points in Munich
 
-					- Abläufe, die für den Menschen einfach erscheinen, sind für einen Bordcomputer, eine Applikation, ein Leistellensystem
-					oft eine große Herausforderung.
-					- Aufbau einer optimalen Ladeinfrastruktur (Bus, Auto, Roller, eBike, eRoller) <!-- .element: class="fragment" -->
-					- <!-- .element: class="fragment" --> Routenoptimierung "Ride Sharing" ([IsarTiger](https://www.mvg.de/services/mobile-services/mvg-isartiger.html))
-					- Routenmatching (Ziel und Zweck des Einsatzes) <!-- .element: class="fragment" -->
+					- Many mobility providers: MVV, Drive Now, Emmy, MVG ([Ride Sharing](https://www.mvg.de/services/mobile-services/mvg-isartiger.html)), ...
+					- "Stammstrecke" <!-- .element: class="fragment" -->
+					- Missing tangential connections <!-- .element: class="fragment" -->
+					- Building a charging infrastructure <!-- .element: class="fragment" -->
 					</script>
 				</section>
 				<section data-markdown data-markdown data-background="img/dominik-martin-yE3_G-b1Spc-unsplash.jpg" data-background-opacity="0.2">
 					<script type="text/template">
-					### Wiederkehrendes Schema
+					### Recurring Schema
 
-					- <!-- .element: class="fragment" --> eine Userbasis *u* 
-					- <!-- .element: class="fragment" --> möchte vom Dienstleister *d* in
-					- <!-- .element: class="fragment" --> Transportgefäßen **v** 
-					- <!-- .element: class="fragment" --> von **a** nach **b** gebracht werden 
+					- <!-- .element: class="fragment" --> a user *u* 
+					- <!-- .element: class="fragment" --> wants to be transported by provider *p* in
+					- <!-- .element: class="fragment" --> vessel **v** 
+					- <!-- .element: class="fragment" --> from **a** to **b**
 					
-					<!-- .element: class="fragment" --> Wir unterscheiden hier
-					- <!-- .element: class="fragment" --> die Mobilitätsanfrage des Users **Au**
-					- <!-- .element: class="fragment" -->das Mobilitätsangebot der Mobilitätsdienstleister **Ad**
-					- <!-- .element: class="fragment" --> die tatsächliche Nachfrage **N**
+					<img class="fragment" data-src="img/mobilitygraphschema.png" height=200 style="background:none; border:none; box-shadow:none;">
 					</script>
 				</section>
 				<section data-markdown data-markdown data-background="img/dominik-martin-yE3_G-b1Spc-unsplash.jpg" data-background-opacity="0.2">
 					<script type="text/template">
-					### Potentielle Use Cases
+					### Potential Use Cases
 
-					- Fahrgast ist von einer Verzögerung betroffen und steht am Hauptbahnhof
-					- <!-- .element: class="fragment" --> Alternative Verbindungen empfehlen 
-						+ Reaktion auf Echtzeit Anfragen anderer User
-						+ Routing per Ride Sharing, Car Sharing, ...
-					- <!-- .element: class="fragment" --> Verknüpfung mit *Social Media* 
-						+ Vorsicht DSGVO und Opt-ins! Hier muss mit besonderer Vorsicht gehandelt werden
-						+ Gutschein beim bevorzugten Laden in der Nähe
-					- <!-- .element: class="fragment" --> Gruppen-Verhalten bei Verzögerungen 
-						+ Welche Locations sind besonders gut besucht
+					- Passenger is affected by delay
+					- <!-- .element: class="fragment" --> Provide real-time re-routing 
+						+ Using best available vessel
+						+ Give other users incentives to optimize system (car sharing)
+					- <!-- .element: class="fragment" --> Recommend other activities 
+						+ go to near shop or restaurant
+						+ frequented places
+						+ delicate use cases: **opt-ins and GDPR!**
 					</script>
 				</section>
 			</section>
@@ -205,30 +197,27 @@
 				<!--https://stackoverflow.com/questions/18327314/how-to-allow-http-content-within-an-iframe-on-a-https-site-->
 				<section data-markdown data-background="img/nasa-1lfI7wkGWZ4-unsplash.jpg" data-background-opacity="0.3">
 					<script type="text/template">
-					### Ein verwandtes Anwendungsbeispiel
+					### Use Case example using open data
 
-					Warnung vorab: Beispiele werden wegen der heterogenität der Daten nicht immer optimal passen!
+					Due to the heterogenity of the available data, data and use cases are not always consistent!
 
 					<iframe width="1200" height="450" data-src="http://geoviews.org/gallery/bokeh/airport_graph.html"></iframe>
 
 					</script>
-					<aside class="notes">Daten aus Applikationen zumeist sehr heterogen und da wir momentan diese Daten nicht in originaler
-							Form zeigen können (und randomisieren echt langweilige Ergebnisse liefert...), suchen wir uns ein sehr ähnliches
-							Beispiel zur Veranschaulichung.</aside>
 				</section>
 				<section data-markdown data-background="img/nasa-1lfI7wkGWZ4-unsplash.jpg" data-background-opacity="0.3">
 					<script type="text/template">
-					### Ein Anwendungsbeispiel
+					### Use Case example using open data
 
 					|                  |                                   |
 					|------------------|-----------------------------------|
-					| Knoten           | Flughafen                         |
-					| Kanten           | Flüge                             |
-					| Knoten Attribute | Name, Kürzel, Staat, ...          |
-					| Kanten Attribute | Route, Zeitpunkt, Verspätung, ... |
+					| Node             | Airport                           |
+					| Edges            | Flight                            |
+					| Node attributes  | Name, IATA code, state, ...       |
+					| Edges attributes | Route, timestamp, delay, ...      |
 					| | |
 
-					<!-- .element: class="fragment" --> Gerichteter Multi-Graph, Kanten zwischen zwei Knoten<br>x &rarr; y und y &rarr; x<br>können mehrfach auftreten.
+					<!-- .element: class="fragment" --> directed multi-graph, edges between two nodes <br>x &rarr; y and y &rarr; x<br>can occurr multiple times.
 					</script>
 				</section>
 				<section data-markdown data-background="img/nasa-1lfI7wkGWZ4-unsplash.jpg" data-background-opacity="0.3">
