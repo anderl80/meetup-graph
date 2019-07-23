@@ -118,8 +118,6 @@
 					
 					> In GraphFrames, vertices and edges are represented as DataFrames, allowing us to store arbitrary data with each vertex and edge.
 
-					- Mixing graph algorithms and "classical" ML algorithms easily possible <!-- .element: class="fragment" -->
-
 					<pre class="fragment"><code class="hljs" data-line-numbers="7" data-trim>
 							v = sqlContext.createDataFrame([
 							  ("a", "Alice", 34),
@@ -137,6 +135,9 @@
 							g = GraphFrame(v, e)
 							</code></pre>
 					</script>
+				</section>
+				<section data-markdown>
+					-  Mixing graph algorithms and "classical" ML algorithms possible
 				</section>
 				<section data-markdown>
 					<script type="text/template">
